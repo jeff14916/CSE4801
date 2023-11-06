@@ -1,37 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Authenticator } from "@aws-amplify/ui-react";
-import { Auth } from "aws-amplify";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Auth, Hub } from "aws-amplify";
+import { useNavigate } from "react-router-dom";
+import "@aws-amplify/ui-react/styles.css";
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     const checkAuthState = async () => {
       try {
         await Auth.currentAuthenticatedUser();
-        setIsAuthenticated(true);
+        navigate('/'); // Navigate to main page immediately if authenticated
       } catch (e) {
-        setIsAuthenticated(false);
+        // If not authenticated, the Authenticator component will be rendered
       }
     };
+
+    // This listener handles the auth state change and navigates the user after login
+    const removeAuthListener = Hub.listen('auth', ({ payload: { event } }) => {
+      if (event === 'signIn') {
+        navigate('/');
+      }
+    });
+
     checkAuthState();
-  }, []);
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      const redirectTo = location.state?.from || "/";
-      navigate(redirectTo);
-    }
-  }, [isAuthenticated, navigate, location.state]);
+    return () => {
+      // Remove the auth listener when the component is unmounted
+      removeAuthListener();
+    };
+  }, [navigate]);
 
-  return (
-    <div>
-      {!isAuthenticated && <Authenticator />}
-    </div>
-  );
+  return <Authenticator />;
 };
 
 export default LoginPage;
