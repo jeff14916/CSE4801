@@ -19,7 +19,7 @@ const LoginPage: React.FC = () => {
 
     const removeAuthListener = Hub.listen('auth', ({ payload: { event } }) => {
       if (event === 'signIn') {
-        navigate('/');
+        navigate(-1);
       }
     });
 
