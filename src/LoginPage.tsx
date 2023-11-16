@@ -11,13 +11,12 @@ const LoginPage: React.FC = () => {
     const checkAuthState = async () => {
       try {
         await Auth.currentAuthenticatedUser();
-        navigate('/'); // Navigate to main page immediately if authenticated
+        navigate('/');
       } catch (e) {
-        // If not authenticated, the Authenticator component will be rendered
+        console.error("Authentication error: ", e);
       }
     };
 
-    // This listener handles the auth state change and navigates the user after login
     const removeAuthListener = Hub.listen('auth', ({ payload: { event } }) => {
       if (event === 'signIn') {
         navigate('/');
@@ -26,10 +25,7 @@ const LoginPage: React.FC = () => {
 
     checkAuthState();
 
-    return () => {
-      // Remove the auth listener when the component is unmounted
-      removeAuthListener();
-    };
+    return () => removeAuthListener();
   }, [navigate]);
 
   return <Authenticator />;
