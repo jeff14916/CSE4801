@@ -28,6 +28,10 @@ const LoginPage: React.FC = () => {
     return () => removeAuthListener();
   }, [navigate]);
 
+  useEffect(() => {
+  document.title = "Log In";
+  }, []);
+
   return <Authenticator />;
 };
 
