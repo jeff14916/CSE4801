@@ -45,8 +45,9 @@ const MainPage: React.FC = () => {
 
   return (
     <div>
-      {username ? <h2>Hello, {username}!</h2> : <Button onClick={handleLogIn}>Log In</Button>}
+      {username && <h2>Hello, {username}!</h2>}
       <h1>Welcome to the Main Page</h1>
+      {!username && <Button onClick={handleLogIn}>Log In</Button>}
       {username && <Button onClick={handleLogout}>Log Out</Button>}
       <Button onClick={() => goToPage('/')}>Go to Main Page</Button>
       <Button onClick={() => goToPage('/page1')}>Go to Page 1</Button>
