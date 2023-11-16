@@ -39,6 +39,11 @@ const Page1: React.FC = () => {
     navigate(path);
   };
 
+  useEffect(() => {
+  document.title = "Page 1";
+  }, []);
+
+
   return (
     <div>
       {username ? <h2>Hello, {username}!</h2> : <Button onClick={handleLogIn}>Log In</Button>}

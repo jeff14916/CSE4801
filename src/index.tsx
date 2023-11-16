@@ -16,6 +16,3 @@ root.render(
     <App />
   </React.StrictMode>
 );
-
-// Uncomment the line below to measure performance in your app
-// reportWebVitals(console.log);
