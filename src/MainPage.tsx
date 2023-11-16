@@ -25,6 +25,7 @@ const MainPage: React.FC = () => {
   const handleLogout = async () => {
     try {
       await Auth.signOut();
+      setUsername(null);
     } catch (error) {
       console.error('Error signing out: ', error);
     }
@@ -40,8 +41,8 @@ const MainPage: React.FC = () => {
 
   return (
     <div>
-      <h1>Welcome to the Main Page</h1>
       {username ? <h2>Hello, {username}!</h2> : <Button onClick={handleLogIn}>Log In</Button>}
+      <h1>Welcome to the Main Page</h1>
       {username && <Button onClick={handleLogout}>Log Out</Button>}
       <Button onClick={() => goToPage('/')}>Go to Main Page</Button>
       <Button onClick={() => goToPage('/page1')}>Go to Page 1</Button>
