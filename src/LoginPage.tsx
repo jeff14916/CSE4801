@@ -11,7 +11,7 @@ const LoginPage: React.FC = () => {
     const checkAuthState = async () => {
       try {
         await Auth.currentAuthenticatedUser();
-        navigate('/');
+        navigate(-1);
       } catch (e) {
         console.error("Authentication error: ", e);
       }

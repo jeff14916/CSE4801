@@ -25,7 +25,6 @@ const MainPage: React.FC = () => {
   const handleLogout = async () => {
     try {
       await Auth.signOut();
-      navigate('/login');
     } catch (error) {
       console.error('Error signing out: ', error);
     }
@@ -34,12 +33,18 @@ const MainPage: React.FC = () => {
   const handleLogIn = () => {
     navigate('/login', { state: { from: location.pathname } });
   };
+  
+  const goToPage = (path: string) => {
+    navigate(path);
+  };
 
   return (
     <div>
       <h1>Welcome to the Main Page</h1>
       {username ? <h2>Hello, {username}!</h2> : <Button onClick={handleLogIn}>Log In</Button>}
       {username && <Button onClick={handleLogout}>Log Out</Button>}
+      <Button onClick={() => goToPage('/')}>Go to Main Page</Button>
+      <Button onClick={() => goToPage('/page1')}>Go to Page 1</Button>
     </div>
   );
 };
