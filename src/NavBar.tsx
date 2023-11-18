@@ -1,63 +1,47 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Auth } from "aws-amplify";
-import "./NavBar.css"; // Import your CSS file
-import { useNavigate, useLocation } from "react-router-dom";
-import "@aws-amplify/ui-react/styles.css";
+import "./NavBar.css";
 
 const NavBar: React.FC = () => {
-	const navigate = useNavigate();
-	const location = useLocation();
-	const [username, setUsername] = useState<string | null>(null);
+	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
 	useEffect(() => {
-		const fetchUser = async () => {
-			try {
-				const user = await Auth.currentAuthenticatedUser();
-				setUsername(user.username);
-			} catch (e) {
-				console.error("Error fetching user: ", e);
-			}
-		};
-
-		fetchUser();
+		checkUserAuthentication();
 	}, []);
 
+	const checkUserAuthentication = async () => {
+		try {
+			await Auth.currentAuthenticatedUser();
+			setIsAuthenticated(true);
+		} catch (error) {
+			setIsAuthenticated(false);
+		}
+	};
+
 	const handleAuthAction = async () => {
-		if (username) {
+		if (isAuthenticated) {
 			try {
 				await Auth.signOut();
-				setUsername(null);
+				setIsAuthenticated(false);
 			} catch (error) {
 				console.error("Error signing out: ", error);
 			}
 		} else {
-			navigate("/login", { state: { from: location.pathname } });
+			// Redirect to login page
+			// Assuming you're using react-router-dom for navigation
+			window.location.href = "/login";
 		}
 	};
 
 	return (
 		<div className="navbar">
 			<Link to="/" className="nav-title">
-				THE TITLE
+				TITLE OF THE PAGE
 			</Link>
-			<div className="nav-links">
-				<Link to="/camerainfo" className="nav-item">
-					Camera Info
-				</Link>
-				<Link to="/camerarecommend" className="nav-item">
-					Camera Recommendation
-				</Link>
-				<Link to="/photoguide" className="nav-item">
-					Photo Guide
-				</Link>
-				<Link to="/photogallery" className="nav-item">
-					Photo Gallery
-				</Link>
-			</div>
-			{username && <h2>Hello, {username}!</h2>}
+			<div className="nav-links">{/* Navigation Links */}</div>
 			<button onClick={handleAuthAction} className="nav-item">
-				{username ? "Logout" : "Login"}
+				{isAuthenticated ? "Logout" : "Login"}
 			</button>
 		</div>
 	);
