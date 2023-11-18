@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@aws-amplify/ui-react';
 import "@aws-amplify/ui-react/styles.css";
 
-const Page1: React.FC = () => {
+const CameraRecommend: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [username, setUsername] = useState<string | null>(null);
@@ -40,7 +40,7 @@ const Page1: React.FC = () => {
   };
 
   useEffect(() => {
-  document.title = "Page 1";
+  document.title = "Camera Recommend";
   }, []);
 
 
@@ -50,10 +50,13 @@ const Page1: React.FC = () => {
       <h1>Welcome to the Page 1</h1>
       {!username && <Button onClick={handleLogIn}>Log In</Button>}
       {username && <Button onClick={handleLogout}>Log Out</Button>}
-      <Button onClick={() => goToPage('/')}>Go to Main Page</Button>
-      <Button onClick={() => goToPage('/page1')}>Go to Page 1</Button>
+      <Button onClick={() => goToPage('/')}>Main Page</Button>
+      <Button onClick={() => goToPage('/camerainfo')}>Camera Info</Button>
+      <Button onClick={() => goToPage('/camerarecommend')}>Camera Recommend</Button>
+      <Button onClick={() => goToPage('/photoguide')}>Photo Guide</Button>
+      <Button onClick={() => goToPage('/photogallery')}>Photo Gallery</Button>
     </div>
   );
 };
 
-export default Page1;
+export default CameraRecommend;

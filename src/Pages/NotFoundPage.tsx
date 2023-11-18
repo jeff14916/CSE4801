@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@aws-amplify/ui-react';
 import "@aws-amplify/ui-react/styles.css";
@@ -9,6 +9,10 @@ const NotFoundPage: React.FC = () => {
   const handleGoBack = () => {
     navigate(-1); // Go back to the previous page
   };
+
+  useEffect(() => {
+  document.title = "Page Not Found";
+  }, []);
 
   return (
     <div>
