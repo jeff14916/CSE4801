@@ -7,23 +7,23 @@ import CameraRecommend from "./Pages/CameraRecommend";
 import PhotoGuide from "./Pages/PhotoGuide";
 import PhotoGallery from "./Pages/PhotoGallery";
 import NotFoundPage from "./Pages/NotFoundPage"; // Assuming you have a 404 page
-import NavBar from './NavBar';
+import NavBar from "./NavBar";
 
 const App = () => {
-  return (
-    <Router>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/camerainfo" element={<CameraInfo />} />
-        <Route path="/camerarecommend" element={<CameraRecommend />} />
-        <Route path="/photoguide" element={<PhotoGuide />} />
-        <Route path="/photogallery" element={<PhotoGallery />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </Router>
-  );
+	return (
+		<Router>
+			<NavBar />
+			<Routes>
+				<Route path="/" element={<MainPage />} />
+				<Route path="/login" element={<LoginPage />} />
+				<Route path="/camerainfo" element={<CameraInfo />} />
+				<Route path="/camerarecommend" element={<CameraRecommend />} />
+				<Route path="/photoguide" element={<PhotoGuide />} />
+				<Route path="/photogallery" element={<PhotoGallery />} />
+				<Route path="*" element={<NotFoundPage />} />
+			</Routes>
+		</Router>
+	);
 };
 
 export default App;

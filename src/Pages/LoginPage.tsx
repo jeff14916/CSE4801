@@ -5,34 +5,37 @@ import { useNavigate } from "react-router-dom";
 import "@aws-amplify/ui-react/styles.css";
 
 const LoginPage: React.FC = () => {
-  const navigate = useNavigate();
+	const navigate = useNavigate();
 
-  useEffect(() => {
-    const checkAuthState = async () => {
-      try {
-        await Auth.currentAuthenticatedUser();
-        navigate(-1);
-      } catch (e) {
-        console.error("Authentication error: ", e);
-      }
-    };
+	useEffect(() => {
+		const checkAuthState = async () => {
+			try {
+				await Auth.currentAuthenticatedUser();
+				navigate(-1);
+			} catch (e) {
+				console.error("Authentication error: ", e);
+			}
+		};
 
-    const removeAuthListener = Hub.listen('auth', ({ payload: { event } }) => {
-      if (event === 'signIn') {
-        navigate(-1);
-      }
-    });
+		const removeAuthListener = Hub.listen(
+			"auth",
+			({ payload: { event } }) => {
+				if (event === "signIn") {
+					navigate(-1);
+				}
+			}
+		);
 
-    checkAuthState();
+		checkAuthState();
 
-    return () => removeAuthListener();
-  }, [navigate]);
+		return () => removeAuthListener();
+	}, [navigate]);
 
-  useEffect(() => {
-  document.title = "Log In";
-  }, []);
+	useEffect(() => {
+		document.title = "Log In";
+	}, []);
 
-  return <Authenticator />;
+	return <Authenticator />;
 };
 
 export default LoginPage;

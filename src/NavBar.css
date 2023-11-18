@@ -1,10 +1,26 @@
 .navbar {
 	background-color: #333;
 	overflow: hidden;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.nav-title {
+	float: left;
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	font-size: 20px;
+}
+
+.nav-links {
+	display: flex;
 }
 
 .nav-item {
-	float: left;
 	display: block;
 	color: white;
 	text-align: center;
@@ -19,6 +35,8 @@
 
 /* Responsive adjustments if needed */
 @media screen and (max-width: 600px) {
+	.nav-title,
+	.nav-links,
 	.nav-item {
 		float: none;
 		display: block;
