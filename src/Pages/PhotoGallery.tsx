@@ -47,7 +47,7 @@ const PhotoGallery: React.FC = () => {
   return (
     <div>
       {username && <h2>Hello, {username}!</h2>}
-      <h1>Welcome to the Page 1</h1>
+      <h1>Photo Gallery</h1>
       {!username && <Button onClick={handleLogIn}>Log In</Button>}
       {username && <Button onClick={handleLogout}>Log Out</Button>}
       <Button onClick={() => goToPage('/')}>Main Page</Button>

@@ -7,10 +7,12 @@ import CameraRecommend from "./Pages/CameraRecommend";
 import PhotoGuide from "./Pages/PhotoGuide";
 import PhotoGallery from "./Pages/PhotoGallery";
 import NotFoundPage from "./Pages/NotFoundPage"; // Assuming you have a 404 page
+import NavBar from './NavBar';
 
 const App = () => {
   return (
     <Router>
+      <NavBar />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<LoginPage />} />
