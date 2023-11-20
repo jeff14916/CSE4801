@@ -5,6 +5,7 @@ import "./NavBar.css";
 
 const NavBar: React.FC = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const [username, setUsername] = useState<string | null>(null);
 
 	useEffect(() => {
 		checkUserAuthentication();
@@ -12,7 +13,8 @@ const NavBar: React.FC = () => {
 
 	const checkUserAuthentication = async () => {
 		try {
-			await Auth.currentAuthenticatedUser();
+			const user = await Auth.currentAuthenticatedUser();
+			setUsername(user.username);
 			setIsAuthenticated(true);
 		} catch (error) {
 			setIsAuthenticated(false);
@@ -23,13 +25,12 @@ const NavBar: React.FC = () => {
 		if (isAuthenticated) {
 			try {
 				await Auth.signOut();
+				setUsername(null);
 				setIsAuthenticated(false);
 			} catch (error) {
 				console.error("Error signing out: ", error);
 			}
 		} else {
-			// Redirect to login page
-			// Assuming you're using react-router-dom for navigation
 			window.location.href = "/login";
 		}
 	};
@@ -39,7 +40,21 @@ const NavBar: React.FC = () => {
 			<Link to="/" className="nav-title">
 				TITLE OF THE PAGE
 			</Link>
-			<div className="nav-links">{/* Navigation Links */}</div>
+			<div className="nav-links">
+				<Link to="/camerainfo" className="nav-item">
+					Camera Info
+				</Link>
+				<Link to="/camerarecommend" className="nav-item">
+					Camera Recommendation
+				</Link>
+				<Link to="/photoguide" className="nav-item">
+					Photo Guide
+				</Link>
+				<Link to="/photogallery" className="nav-item">
+					Photo Gallery
+				</Link>
+			</div>
+			{isAuthenticated && <h2>Hello, {username}!</h2>}
 			<button onClick={handleAuthAction} className="nav-item">
 				{isAuthenticated ? "Logout" : "Login"}
 			</button>
