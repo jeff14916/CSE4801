@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Auth } from "aws-amplify";
 import "@aws-amplify/ui-react/styles.css";
 
-const PhotoGuide: React.FC = () => {
+const MyPage: React.FC = () => {
 	const [username, setUsername] = useState<string | null>(null);
 
 	useEffect(() => {
@@ -19,15 +19,15 @@ const PhotoGuide: React.FC = () => {
 	}, []);
 
 	useEffect(() => {
-		document.title = "Photo Guide";
+		document.title = "My Page";
 	}, []);
 
 	return (
 		<div>
 			{username && <h2>Hello, {username}!</h2>}
-			<h1>Photo Guide</h1>
+			<h1>My Page</h1>
 		</div>
 	);
 };
 
-export default PhotoGuide;
+export default MyPage;

@@ -7,7 +7,7 @@ const NotFoundPage: React.FC = () => {
 	const navigate = useNavigate();
 
 	const handleGoBack = () => {
-		navigate(-1); // Go back to the previous page
+		navigate("/");
 	};
 
 	useEffect(() => {
@@ -18,7 +18,7 @@ const NotFoundPage: React.FC = () => {
 		<div>
 			<h1>404: Page Not Found</h1>
 			<p>Sorry, the page you're looking for doesn't exist.</p>
-			<Button onClick={handleGoBack}>Go Back</Button>
+			<Button onClick={handleGoBack}>Go to Main Page</Button>
 		</div>
 	);
 };

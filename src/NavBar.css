@@ -1,58 +1,30 @@
 .titlebar {
 	display: flex;
-	justify-content: space-between;
+	justify-content: left;
 	align-items: center;
 	padding: 10px;
 	background-color: #f0f0f0;
 }
-
-.nav-container {
-	display: flex;
-	width: 100%;
-	justify-content: space-between;
-	align-items: center;
+.title {
+	text-decoration: none;
+	color: inherit;
 }
-
 .title_text {
-	margin: 0;
 	font-size: 24px;
 	text-align: center;
-	margin-left: 30px;
+	margin-left: 100px;
+	margin-right: 100px;
 }
 
-.nav-links {
-	display: flex;
-	gap: 20px; /* Adjust the gap as needed */
-}
-
-.nav-link {
+.linkitem {
+	font-size: 18px;
+	margin-left: 15px;
+	margin-right: 15px;
 	text-decoration: none;
-	color: #000; /* Adjust link color as needed */
-	padding: 10px;
-	border: 1px solid transparent; /* Optional: adds a transparent border */
-	border-radius: 4px; /* Optional: for rounded corners */
+	color: inherit;
 }
 
-.nav-link:hover {
-	background-color: #ddd; /* Optional: change on hover */
-	border-color: #ccc; /* Optional: border color on hover */
-}
-
-.greeting {
-	margin-right: 20px; /* Adjust as needed */
-}
-
-.authbutton {
-	background: none;
-	border: none;
-	color: #007bff; /* Example link color */
-	padding: 0;
-	font-size: 1rem;
-	cursor: pointer;
-	text-decoration: underline;
-}
-
-.authbutton:hover,
-.authbutton:focus {
-	text-decoration: none;
+.linkitem:hover,
+.linkitem:focus {
+	transform: scale(1.1);
 }
