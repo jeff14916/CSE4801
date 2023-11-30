@@ -1,14 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Auth } from "aws-amplify";
+import { Link, useNavigate } from "react-router-dom";
+import { Auth, Hub } from "aws-amplify";
 import "./NavBar.css";
 
 const NavBar: React.FC = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [username, setUsername] = useState<string | null>(null);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		checkUserAuthentication();
+		const removeAuthListener = Hub.listen(
+			"auth",
+			({ payload: { event } }) => {
+				if (event === "signIn") {
+					checkUserAuthentication();
+				} else if (event === "signOut") {
+					setUsername(null);
+					setIsAuthenticated(false);
+					window.location.reload();
+				}
+			}
+		);
+
+		return () => removeAuthListener();
 	}, []);
 
 	const checkUserAuthentication = async () => {
@@ -25,40 +40,47 @@ const NavBar: React.FC = () => {
 		if (isAuthenticated) {
 			try {
 				await Auth.signOut();
-				setUsername(null);
-				setIsAuthenticated(false);
 			} catch (error) {
 				console.error("Error signing out: ", error);
 			}
 		} else {
-			window.location.href = "/login";
+			navigate("/login");
 		}
 	};
 
 	return (
-		<div className="navbar">
-			<Link to="/" className="nav-title">
-				TITLE OF THE PAGE
-			</Link>
-			<div className="nav-links">
-				<Link to="/camerainfo" className="nav-item">
-					Camera Info
+		<nav className="titlebar">
+			<div className="nav-container">
+				<Link to="/" className="title">
+					<h1 className="title_text">
+						All about Camera:<br></br>
+						For Beginners
+					</h1>
 				</Link>
-				<Link to="/camerarecommend" className="nav-item">
-					Camera Recommendation
-				</Link>
-				<Link to="/photoguide" className="nav-item">
-					Photo Guide
-				</Link>
-				<Link to="/photogallery" className="nav-item">
-					Photo Gallery
-				</Link>
+				<div className="nav-links">
+					<Link to="/camerainfo" className="nav-item">
+						Camera Info
+					</Link>
+					<Link to="/camerarecommend" className="nav-item">
+						Camera Recommendation
+					</Link>
+					<Link to="/photoguide" className="nav-item">
+						Photo Guide
+					</Link>
+					<Link to="/photogallery" className="nav-item">
+						Photo Gallery
+					</Link>
+				</div>
+				<div className="right-nav">
+					{isAuthenticated && (
+						<h2 className="greeting">Hello, {username}!</h2>
+					)}
+					<button onClick={handleAuthAction} className="authbutton">
+						{isAuthenticated ? "Logout" : "Login"}
+					</button>
+				</div>
 			</div>
-			{isAuthenticated && <h2>Hello, {username}!</h2>}
-			<button onClick={handleAuthAction} className="nav-item">
-				{isAuthenticated ? "Logout" : "Login"}
-			</button>
-		</div>
+		</nav>
 	);
 };
 

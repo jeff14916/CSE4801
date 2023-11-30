@@ -1,3 +1,4 @@
+// LoginPage.tsx
 import React, { useEffect } from "react";
 import { Authenticator } from "@aws-amplify/ui-react";
 import { Auth, Hub } from "aws-amplify";
@@ -11,7 +12,7 @@ const LoginPage: React.FC = () => {
 		const checkAuthState = async () => {
 			try {
 				await Auth.currentAuthenticatedUser();
-				navigate(-1);
+				navigate(-1); // Navigates back to the previous page
 			} catch (e) {
 				console.error("Authentication error: ", e);
 			}
@@ -21,7 +22,7 @@ const LoginPage: React.FC = () => {
 			"auth",
 			({ payload: { event } }) => {
 				if (event === "signIn") {
-					navigate(-1);
+					navigate(-1); // Navigates back to the previous page
 				}
 			}
 		);
