@@ -13,6 +13,7 @@ const LogoutPage: React.FC = () => {
 			try {
 				await Auth.signOut();
 				if (isMounted) {
+					alert("Logout Success!");
 					navigate(-1);
 				}
 			} catch (e) {

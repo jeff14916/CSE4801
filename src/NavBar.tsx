@@ -55,12 +55,10 @@ const NavBar: React.FC = () => {
 			<Link to="/photogallery" className="linkitem">
 				Photo Gallery
 			</Link>
-			{isAuthenticated && "/"}
-			{isAuthenticated && (
-				<Link to="/mypage" className="linkitem">
-					My Page
-				</Link>
-			)}
+			/
+			<Link to="/mypage" className="linkitem">
+				My Page
+			</Link>
 			/
 			{isAuthenticated && (
 				<Link to="/logout" className="linkitem">

@@ -21,6 +21,7 @@ const LoginPage: React.FC = () => {
 			"auth",
 			({ payload: { event } }) => {
 				if (event === "signIn") {
+					alert("Login Success!");
 					navigate(-1);
 				}
 			}
